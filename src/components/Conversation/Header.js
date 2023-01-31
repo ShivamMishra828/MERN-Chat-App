@@ -1,8 +1,18 @@
-import { Avatar, Badge, Box, Divider, IconButton, Stack, Typography } from "@mui/material";
+import {
+  Avatar,
+  Badge,
+  Box,
+  Divider,
+  IconButton,
+  Stack,
+  Typography,
+} from "@mui/material";
 import React from "react";
 import { faker } from "@faker-js/faker";
 import { styled, useTheme } from "@mui/material/styles";
 import { CaretDown, MagnifyingGlass, Phone, VideoCamera } from "phosphor-react";
+import { ToggleSidebar } from "../../redux/slices/app";
+import { useDispatch } from "react-redux";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -34,13 +44,17 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 const Header = () => {
-    const theme = useTheme();
+  const theme = useTheme();
+  const dispatch = useDispatch();
   return (
     <Box
-    p={2}
+      p={2}
       sx={{
         width: "100%",
-        backgroundColor: theme.palette.mode === "light" ? "#F8FAFF" : theme.palette.background.paper,
+        backgroundColor:
+          theme.palette.mode === "light"
+            ? "#F8FAFF"
+            : theme.palette.background.paper,
         boxShadow: "0px 0px 2px rgba(0, 0, 0, 0.25)",
       }}
     >
@@ -53,7 +67,13 @@ const Header = () => {
           height: "100%",
         }}
       >
-        <Stack direction={"row"} spacing={2}>
+        <Stack
+          onClick={() => {
+            dispatch(ToggleSidebar());
+          }}
+          direction={"row"}
+          spacing={2}
+        >
           <Box>
             <StyledBadge
               overlap="circular"
@@ -69,19 +89,19 @@ const Header = () => {
           </Stack>
         </Stack>
         <Stack direction={"row"} alignItems={"center"} spacing={3}>
-            <IconButton>
-                <VideoCamera />
-            </IconButton>
-            <IconButton>
-                <Phone />
-            </IconButton>
-            <IconButton>
-                <MagnifyingGlass />
-            </IconButton>
-            <Divider orientation="vertical" flexItem />
-            <IconButton>
-                <CaretDown />
-            </IconButton>
+          <IconButton>
+            <VideoCamera />
+          </IconButton>
+          <IconButton>
+            <Phone />
+          </IconButton>
+          <IconButton>
+            <MagnifyingGlass />
+          </IconButton>
+          <Divider orientation="vertical" flexItem />
+          <IconButton>
+            <CaretDown />
+          </IconButton>
         </Stack>
       </Stack>
     </Box>
